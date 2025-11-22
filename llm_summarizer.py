@@ -117,11 +117,21 @@ def generate_summary(buffer):
             weechat.prnt(buffer, weechat.color("green") + line + weechat.color("reset"))
     weechat.prnt(buffer, "")
 
+def message_handler(data, buffer, date, tags, displayed, highlight, prefix, message):
+    """Capture new messages and add them to history"""
+    buffer_name = weechat.buffer_get_string(buffer, "name")
+    add_to_history(buffer_name, prefix, message)
+    return weechat.WEECHAT_RC_OK
+
 def summary_command(data, buffer, args):
     generate_summary(buffer)
     return weechat.WEECHAT_RC_OK
 
 if weechat.register(SCRIPT_NAME, SCRIPT_AUTHOR, SCRIPT_VERSION, SCRIPT_LICENSE, SCRIPT_DESC, "", ""):
     init_config()
+    
+    # HOOK MESSAGES - THIS WAS MISSING!
+    weechat.hook_print("", "irc_privmsg", "", 1, "message_handler", "")
+    
     weechat.hook_command("summary", "Generate chat summary using LLM", "", "", "", "summary_command", "")
     weechat.prnt("", "LLM Summarizer loaded! Use /summary to generate summaries.")
