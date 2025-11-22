@@ -38,8 +38,8 @@ cd ~/.local/share/weechat/python/  # macOS
 # cd %APPDATA%\WeeChat\python\     # Windows
 
 # Download the script and prompt template
-wget https://raw.githubusercontent.com/anton-doltan/weechat-llm-summarizer/main/llm_summarizer.py
-wget https://raw.githubusercontent.com/anton-doltan/weechat-llm-summarizer/main/summary_prompt.txt
+wget https://codeberg.org/anton-doltan/weechat-llm-summarizer/raw/branch/main/llm_summarizer.py
+wget https://codeberg.org/anton-doltan/weechat-llm-summarizer/raw/branch/main/summary_prompt.txt
 ```
 ### 3. Load in WeeChat
 ```bash
