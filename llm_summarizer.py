@@ -3,10 +3,11 @@ import json
 import urllib.request
 import urllib.error
 from datetime import datetime
+import os
 
 SCRIPT_NAME = "llm_summarizer"
 SCRIPT_AUTHOR = "anton-doltan"
-SCRIPT_VERSION = "1.0"
+SCRIPT_VERSION = "1.1"
 SCRIPT_LICENSE = "MIT"
 SCRIPT_DESC = "Summarize chat with local LLM"
 
@@ -14,8 +15,8 @@ config_defaults = {
     "llm_url": "http://localhost:11434/api/generate",
     "llm_model": "llama3.2:3b", 
     "max_history_lines": "50",
-    "summary_trigger": "!summary",
     "temperature": "0.7",
+    "prompt_file": "summary_prompt.txt",
 }
 
 buffer_history = {}
@@ -27,6 +28,28 @@ def init_config():
 
 def get_config(key):
     return weechat.config_get_plugin(key)
+
+def load_prompt_template(history_text):
+    """Load prompt from external file in same directory"""
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_file = os.path.join(script_dir, get_config("prompt_file"))
+    
+    try:
+        with open(prompt_file, 'r') as f:
+            template = f.read()
+        
+        # Replace placeholders
+        prompt = template.replace("{{history}}", history_text)
+        return prompt
+        
+    except FileNotFoundError:
+        # Fallback to default prompt
+        weechat.prnt("", f"Prompt file not found: {prompt_file}, using default prompt")
+        return f"""Please provide a concise summary of this chat conversation:
+
+{history_text}
+
+Summary:"""
 
 def call_llm(prompt):
     try:
@@ -83,30 +106,16 @@ def generate_summary(buffer):
     
     weechat.prnt(buffer, "Generating summary...")
     
-    prompt = f"""Please provide a concise summary of this chat conversation:
-
-{history_text}
-
-Summary:"""
+    # Use external prompt template
+    prompt = load_prompt_template(history_text)
     
     summary = call_llm(prompt)
     
-    # Green text with spacing
     weechat.prnt(buffer, "")
     for line in summary.split('\n'):
         if line.strip():
             weechat.prnt(buffer, weechat.color("green") + line + weechat.color("reset"))
     weechat.prnt(buffer, "")
-
-def message_handler(data, buffer, date, tags, displayed, highlight, prefix, message):
-    buffer_name = weechat.buffer_get_string(buffer, "name")
-    add_to_history(buffer_name, prefix, message)
-    
-    trigger = get_config("summary_trigger")
-    if message.strip() == trigger:
-        generate_summary(buffer)
-    
-    return weechat.WEECHAT_RC_OK
 
 def summary_command(data, buffer, args):
     generate_summary(buffer)
@@ -114,6 +123,5 @@ def summary_command(data, buffer, args):
 
 if weechat.register(SCRIPT_NAME, SCRIPT_AUTHOR, SCRIPT_VERSION, SCRIPT_LICENSE, SCRIPT_DESC, "", ""):
     init_config()
-    weechat.hook_print("", "irc_privmsg", "", 1, "message_handler", "")
     weechat.hook_command("summary", "Generate chat summary using LLM", "", "", "", "summary_command", "")
-    weechat.prnt("", "LLM Summarizer loaded! Use /summary or type '!summary' in chat.")
+    weechat.prnt("", "LLM Summarizer loaded! Use /summary to generate summaries.")

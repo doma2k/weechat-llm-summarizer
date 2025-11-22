@@ -1,0 +1,15 @@
+Analyze the following IRC chat conversation and provide a structured summary.
+
+CHAT HISTORY:
+{{history}}
+
+Please provide a summary with the following sections:
+1. PARTICIPANTS: Should be mentioned 
+2. MAIN TOPICS: Bullet points of key discussion topics
+3. DECISIONS: Any decisions or agreements made
+4. ACTION ITEMS: Tasks or follow-ups mentioned
+5. KEY INFO: Important links, dates, or information shared
+
+Keep the summary concise but comprehensive. Focus on the most relevant parts.
+
+SUMMARY:

@@ -5,6 +5,7 @@ A Python script for WeeChat that summarizes chat conversations using local LLMs 
 ![Demo](https://img.shields.io/badge/Works%20With-Ollama-orange)
 ![Python](https://img.shields.io/badge/Python-3.7+-blue)
 ![WeeChat](https://img.shields.io/badge/WeeChat-2.7+-green)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 ## ✨ Features
 
@@ -12,8 +13,9 @@ A Python script for WeeChat that summarizes chat conversations using local LLMs 
 - 🔒 **Privacy First** - All processing happens locally, no data sent to the cloud
 - ⚡ **Lightweight** - No external dependencies, uses only Python standard library
 - 🎨 **Clean Output** - Green-colored summaries with proper spacing
-- ⚙️ **Configurable** - Customizable triggers, history size, and model settings
+- ⚙️ **Configurable** - Customizable history size, model settings, and prompts
 - 🔄 **Real-time** - Summarizes current channel conversation history
+- 📝 **Customizable Prompts** - External prompt files for easy customization
 
 ## 🚀 Quick Start
 
@@ -24,3 +26,36 @@ curl -fsSL https://ollama.ai/install.sh | sh
 
 # Pull a model (recommended for speed)
 ollama pull llama3.2:3b
+
+# Start Ollama service
+ollama serve
+```
+### 2. Install the Script
+```bash
+# Navigate to WeeChat python directory (common locations)
+cd ~/.local/share/weechat/python/  # macOS
+# cd ~/.weechat/python/            # Linux
+# cd %APPDATA%\WeeChat\python\     # Windows
+
+# Download the script and prompt template
+wget https://raw.githubusercontent.com/anton-doltan/weechat-llm-summarizer/main/llm_summarizer.py
+wget https://raw.githubusercontent.com/anton-doltan/weechat-llm-summarizer/main/summary_prompt.txt
+```
+### 3. Load in WeeChat
+```bash
+/python load llm_summarizer.py
+```
+
+### 4. Start Using It!
+```bash 
+# Generate summary in current buffer
+/summary
+```
+
+### LLM & Behavior Configuration
+```bash 
+/set plugins.var.python.llm_summarizer.llm_url "http://localhost:11434/api/generate"
+/set plugins.var.python.llm_summarizer.llm_model "llama3.2:3b"
+/set plugins.var.python.llm_summarizer.temperature "0.7"
+/set plugins.var.python.llm_summarizer.max_history_lines "50"
+/set plugins.var.python.llm_summarizer.prompt_file "summary_prompt.txt"
