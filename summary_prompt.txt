@@ -2,6 +2,7 @@ Analyze the following IRC chat conversation and provide a summary:
 
 - Avoid introduction.
 - Straight to the point.
-- If links provided,print them in end of summery.
+- If urls provided,print them in end of summery.
 
 {{history}}
+

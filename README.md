@@ -70,10 +70,7 @@ wget https://codeberg.org/anton-doltan/weechat-llm-summarizer/raw/branch/main/su
 ###  History Statistics 
 ```bash
 /sumstats # Displays global stats
-
 /sumclean  # Clean current buffer history
-
 /sumclean all # Clean all buffers history
-
 /sumclean channel # Clean specific buffer by name
 ```

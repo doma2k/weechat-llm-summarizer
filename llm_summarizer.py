@@ -15,7 +15,7 @@ SCRIPT_DESC = "Summarize chat with local LLM"
 config_defaults = {
     "llm_url": "http://localhost:11434/api/generate",
     "llm_model": "llama3.2:3b", 
-    "max_history_lines": "50",
+    "max_history_lines": "150",
     "temperature": "0.7",
     "prompt_file": "summary_prompt.txt",
 }
