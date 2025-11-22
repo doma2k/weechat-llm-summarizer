@@ -112,7 +112,7 @@ def generate_summary(buffer):
         weechat.prnt(buffer, "No recent history to summarize.")
         return
     
-    weechat.prnt(buffer, "Generating summary...")
+    weechat.prnt(buffer, "")
     
     # Use external prompt template with fallback
     prompt = load_prompt_template(history_text)
@@ -138,5 +138,5 @@ def summary_command(data, buffer, args):
 if weechat.register(SCRIPT_NAME, SCRIPT_AUTHOR, SCRIPT_VERSION, SCRIPT_LICENSE, SCRIPT_DESC, "", ""):
     init_config()
     weechat.hook_print("", "irc_privmsg", "", 1, "message_handler", "")
-    weechat.hook_command("summary", "Generate chat summary using LLM", "", "", "", "summary_command", "")
-    weechat.prnt("", "LLM Summarizer loaded! Use /summary to generate summaries.")
+    weechat.hook_command("sum", "Generate chat summary using LLM", "", "", "", "summary_command", "")
+    weechat.prnt("", "LLM Summarizer loaded! Use /sum to generate summaries.")

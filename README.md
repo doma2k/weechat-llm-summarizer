@@ -20,6 +20,7 @@ A Python script for WeeChat that summarizes chat conversations using local LLMs 
 ## 🚀 Quick Start
 
 ### 1. Install Ollama
+
 ```bash
 # Install Ollama
 curl -fsSL https://ollama.ai/install.sh | sh
@@ -30,7 +31,9 @@ ollama pull llama3.2:3b
 # Start Ollama service
 ollama serve
 ```
+
 ### 2. Install the Script
+
 ```bash
 # Navigate to WeeChat python directory (common locations)
 cd ~/.local/share/weechat/python/  # macOS
@@ -41,21 +44,26 @@ cd ~/.local/share/weechat/python/  # macOS
 wget https://codeberg.org/anton-doltan/weechat-llm-summarizer/raw/branch/main/llm_summarizer.py
 wget https://codeberg.org/anton-doltan/weechat-llm-summarizer/raw/branch/main/summary_prompt.txt
 ```
+
 ### 3. Load in WeeChat
+
 ```bash
 /python load llm_summarizer.py
 ```
 
 ### 4. Start Using It!
-```bash 
+
+```bash
 # Generate summary in current buffer
-/summary
+/sum
 ```
 
 ### LLM & Behavior Configuration
-```bash 
+
+```bash
 /set plugins.var.python.llm_summarizer.llm_url "http://localhost:11434/api/generate"
 /set plugins.var.python.llm_summarizer.llm_model "llama3.2:3b"
 /set plugins.var.python.llm_summarizer.temperature "0.7"
 /set plugins.var.python.llm_summarizer.max_history_lines "50"
 /set plugins.var.python.llm_summarizer.prompt_file "summary_prompt.txt"
+```
