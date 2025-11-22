@@ -67,3 +67,13 @@ wget https://codeberg.org/anton-doltan/weechat-llm-summarizer/raw/branch/main/su
 /set plugins.var.python.llm_summarizer.max_history_lines "50"
 /set plugins.var.python.llm_summarizer.prompt_file "summary_prompt.txt"
 ```
+###  History Statistics 
+```bash
+/sumstats # Displays global stats
+
+/sumclean  # Clean current buffer history
+
+/sumclean all # Clean all buffers history
+
+/sumclean channel # Clean specific buffer by name
+```

@@ -1,16 +1,7 @@
-Analyze this IRC conversation:
+Analyze the following IRC chat conversation and provide a summary:
+
+- Avoid introduction.
+- Straight to the point.
+- If links provided,print them in end of summery.
 
 {{history}}
-
-Extract:
-
-PARTICIPANTS: [user1, user2, user3]
-
-TOPICS:
-• [topic 1]
-• [topic 2]
-• [topic 3]
-
-SUMMARY: [2-3 sentence overview of main discussion]
-
-LINKS: [url1, url2, url3]
